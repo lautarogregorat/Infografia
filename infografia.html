@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: Propiedades del Disilicato de Litio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- 
+    Plan de la Infografía:
+    1.  Introducción: Título impactante y dato clave (tasa de supervivencia) para enganchar.
+    2.  Composición Química: ¿De qué está hecho? Gráfico de dona para visualizar porcentajes.
+    3.  Propiedades Mecánicas: Comparativa de resistencia (flexión) con otros materiales y entre técnicas (Prensado vs. CAD/CAM) usando gráficos de barras.
+    4.  Propiedades Estéticas: Explicación visual del "Efecto Camaleón".
+    5.  Rendimiento Clínico y Comparativa General: Dato de supervivencia y un gráfico de radar para comparar Disilicato, Zirconia y Porcelana Feldespática en múltiples ejes.
+    6.  Flujo de Fabricación: Diagrama de flujo HTML/CSS para mostrar los procesos de Prensado y CAD/CAM.
+    7.  Guía Clínica: Indicaciones y Contraindicaciones en un formato claro y directo.
+    
+    Selección de Visualizaciones:
+    -   Tasa de Supervivencia: Objetivo: Informar. Visualización: "Número Grande" y Gráfico de Dona. Justificación: Impacto inmediato y proporción clara. Método: HTML/CSS y Chart.js (Canvas).
+    -   Composición Química: Objetivo: Comparar (composición de un todo). Visualización: Gráfico de Dona. Justificación: Muestra proporciones de forma intuitiva. Método: Chart.js (Canvas).
+    -   Resistencia a la Flexión: Objetivo: Comparar. Visualización: Gráfico de Barras. Justificación: Comparación directa y clara de valores numéricos entre categorías. Método: Chart.js (Canvas).
+    -   Propiedades por Técnica: Objetivo: Comparar. Visualización: Gráfico de Barras Agrupadas. Justificación: Compara dos métricas a través de dos categorías de forma efectiva. Método: Chart.js (Canvas).
+    -   Comparativa General de Materiales: Objetivo: Comparar (múltiples variables). Visualización: Gráfico de Radar. Justificación: Visualiza el rendimiento relativo en múltiples ejes (resistencia, estética, adhesión) de forma compacta. Método: Chart.js (Canvas).
+    -   Flujo de Fabricación: Objetivo: Organizar (proceso). Visualización: Diagrama de Flujo. Justificación: Muestra los pasos secuenciales de dos procesos en paralelo. Método: HTML/CSS con Tailwind (Divs, Bordes, Flexbox).
+    -   Guía Clínica: Objetivo: Organizar (agrupar). Visualización: Listas en dos columnas. Justificación: Presenta información de "pros y contras" de manera fácil de escanear. Método: HTML/CSS con Tailwind.
+    -   Confirmación: NI MERMAID JS NI SVG fueron utilizados en este documento. Todas las visualizaciones se basan en Chart.js (Canvas) o HTML/CSS.
+    -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F0F4F8; /* Un gris azulado muy claro */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .text-balance {
+            text-wrap: balance;
+        }
+        .brand-blue-dark { color: #0B3C5D; }
+        .brand-blue-mid { color: #328CC1; }
+        .brand-gold { color: #F1B814; }
+        .brand-gray { color: #4F646F; }
+        .bg-brand-blue-dark { background-color: #0B3C5D; }
+        .bg-brand-blue-mid { background-color: #328CC1; }
+        .bg-brand-gold { background-color: #F1B814; }
+        .bg-brand-gray { background-color: #4F646F; }
+        .bg-brand-teal-light { background-color: #D9E8E4; }
+
+        .flow-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        .flow-step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .flow-step-number {
+            background-color: #328CC1;
+            color: white;
+            border-radius: 9999px;
+            width: 2rem;
+            height: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+            margin-right: 1rem;
+        }
+         .flow-arrow {
+            color: #328CC1;
+            font-size: 1.5rem;
+            line-height: 1;
+            text-align: center;
+            margin: 0.25rem 0;
+         }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-8">
+        
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold brand-blue-dark mb-2 text-balance">Disilicato de Litio: La Ciencia Detrás de una Sonrisa Perfecta</h1>
+            <p class="text-lg md:text-xl brand-gray max-w-4xl mx-auto text-balance">Una visión infográfica de las propiedades, rendimiento y aplicaciones clínicas del material de elección para la odontología estética moderna.</p>
+        </header>
+
+        <main class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <div class="md:col-span-2 lg:col-span-3 bg-white rounded-xl shadow-lg p-6 flex flex-col md:flex-row items-center justify-center text-center">
+                <div class="md:w-1/3">
+                    <p class="text-2xl font-semibold brand-gray mb-2">Tasa de Supervivencia Clínica</p>
+                    <p class="text-7xl font-bold brand-blue-dark">97.4%</p>
+                    <p class="text-lg brand-gray mt-2">En estudios de 5 a 10 años para coronas unitarias.</p>
+                </div>
+                <div class="w-full md:w-2/3 mt-6 md:mt-0">
+                    <p class="text-center font-semibold brand-gray mb-4">Esta excepcional durabilidad se debe a una combinación única de resistencia y biocompatibilidad, validando su uso clínico a largo plazo.</p>
+                    <div class="chart-container h-64 md:h-80 max-h-[300px]">
+                        <canvas id="survivalRateChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <h3 class="text-2xl font-bold brand-blue-dark mb-4 text-center">Composición Química</h3>
+                <p class="text-center mb-4 brand-gray">El disilicato de litio es una vitrocerámica, una mezcla de una fase vítrea (vidrio) y una fase cristalina. Esta estructura bifásica es la clave de sus propiedades.</p>
+                <div class="chart-container h-80">
+                    <canvas id="compositionChart"></canvas>
+                </div>
+                 <p class="text-sm text-center mt-4 brand-gray">La fase cristalina (~70%) de cristales de $Li_2Si_2O_5$ entrelazados proporciona la resistencia, mientras la matriz vítrea aporta la estética.</p>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <h3 class="text-2xl font-bold brand-blue-dark mb-4 text-center">Resistencia a la Flexión</h3>
+                 <p class="text-center mb-4 brand-gray">Mide la capacidad de un material para resistir la fractura bajo carga. El disilicato de litio multiplica por 3-5 la resistencia de las cerámicas tradicionales.</p>
+                <div class="chart-container h-80">
+                    <canvas id="flexuralStrengthChart"></canvas>
+                </div>
+                 <p class="text-sm text-center mt-4 brand-gray">Esta alta resistencia permite su uso en coronas posteriores y preparaciones más conservadoras.</p>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <h3 class="text-2xl font-bold brand-blue-dark mb-4 text-center">Propiedades por Técnica</h3>
+                <p class="text-center mb-4 brand-gray">El método de fabricación (Prensado vs. Fresado CAD/CAM) influye sutilmente en las propiedades mecánicas finales de la restauración.</p>
+                <div class="chart-container h-80">
+                    <canvas id="techniquePropertiesChart"></canvas>
+                </div>
+                <p class="text-sm text-center mt-4 brand-gray">Aunque ambas técnicas ofrecen un rendimiento excelente, el prensado muestra valores ligeramente superiores de resistencia y tenacidad.</p>
+            </div>
+
+            <div class="md:col-span-2 lg:col-span-3 bg-white rounded-xl shadow-lg p-6">
+                 <h3 class="text-3xl font-bold brand-blue-dark mb-4 text-center">El Dilema Clínico: Comparativa de Materiales</h3>
+                 <p class="text-center mb-6 max-w-3xl mx-auto brand-gray">La elección del material cerámico correcto es un equilibrio entre la demanda estética y los requerimientos de resistencia. Este gráfico de radar compara los tres principales sistemas cerámicos sin metal en las variables clave que guían la decisión clínica.</p>
+                 <div class="chart-container max-w-lg h-[400px]">
+                    <canvas id="materialsRadarChart"></canvas>
+                 </div>
+                 <div class="mt-6 text-center brand-gray">
+                     <p><span class="font-bold brand-blue-dark">Disilicato de Litio:</span> El equilibrio perfecto. Excelente estética con una resistencia muy robusta, ideal para la mayoría de los casos anteriores y posteriores.</p>
+                     <p><span class="font-bold brand-blue-dark">Zirconia:</span> El campeón de la resistencia. Indicado para puentes largos y pacientes con bruxismo, a costa de una estética inferior.</p>
+                     <p><span class="font-bold brand-blue-dark">Porcelana Feldespática:</span> El estándar de oro estético. Inigualable en manejo de la luz, pero su fragilidad limita su uso a carillas de baja tensión.</p>
+                 </div>
+            </div>
+
+            <div class="lg:col-span-3 grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="flow-card">
+                    <h3 class="text-2xl font-bold brand-blue-dark mb-4 text-center">Flujo de Fabricación: Prensado</h3>
+                    <p class="text-center brand-gray mb-6">Un método basado en la técnica de la cera perdida, considerado el "estándar de oro" por su ajuste y propiedades mecánicas.</p>
+                    <div class="flex-grow flex flex-col justify-center">
+                        <div class="flow-step"><div class="flow-step-number">1</div><span>Encerado de la restauración.</span></div>
+                        <div class="flow-arrow">↓</div>
+                        <div class="flow-step"><div class="flow-step-number">2</div><span>Revestimiento en cilindro.</span></div>
+                        <div class="flow-arrow">↓</div>
+                        <div class="flow-step"><div class="flow-step-number">3</div><span>Eliminación de la cera en horno.</span></div>
+                        <div class="flow-arrow">↓</div>
+                        <div class="flow-step"><div class="flow-step-number">4</div><span>Inyección de la cerámica a presión.</span></div>
+                         <div class="flow-arrow">↓</div>
+                        <div class="flow-step"><div class="flow-step-number">5</div><span>Recuperación y acabado.</span></div>
+                    </div>
+                </div>
+
+                <div class="flow-card">
+                    <h3 class="text-2xl font-bold brand-blue-dark mb-4 text-center">Flujo de Fabricación: CAD/CAM</h3>
+                    <p class="text-center brand-gray mb-6">Un flujo de trabajo digital que permite una alta eficiencia y la odontología en una sola visita.</p>
+                    <div class="flex-grow flex flex-col justify-center">
+                        <div class="flow-step"><div class="flow-step-number">1</div><span>Escaneado digital (Intraoral o modelo).</span></div>
+                         <div class="flow-arrow">↓</div>
+                        <div class="flow-step"><div class="flow-step-number">2</div><span>Diseño virtual en software (CAD).</span></div>
+                         <div class="flow-arrow">↓</div>
+                        <div class="flow-step"><div class="flow-step-number">3</div><span>Fresado de un bloque "azul".</span></div>
+                         <div class="flow-arrow">↓</div>
+                        <div class="flow-step"><div class="flow-step-number">4</div><span>Cocción de cristalización en horno.</span></div>
+                         <div class="flow-arrow">↓</div>
+                        <div class="flow-step"><div class="flow-step-number">5</div><span>Maquillaje y glaseado final.</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="md:col-span-2 lg:col-span-3 bg-white rounded-xl shadow-lg p-8">
+                <h3 class="text-3xl font-bold brand-blue-dark mb-6 text-center">Guía Rápida de Uso Clínico</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="text-2xl font-semibold text-green-600 mb-4 border-b-2 border-green-600 pb-2">✓ Indicaciones</h4>
+                        <ul class="space-y-3 list-inside">
+                            <li class="flex items-start"><span class="text-green-600 mr-2 text-2xl">✓</span><span><span class="font-bold">Coronas Unitarias</span> (Anteriores y Posteriores).</span></li>
+                            <li class="flex items-start"><span class="text-green-600 mr-2 text-2xl">✓</span><span><span class="font-bold">Carillas y láminas</span> delgadas de mínima invasión.</span></li>
+                            <li class="flex items-start"><span class="text-green-600 mr-2 text-2xl">✓</span><span>Incrustaciones <span class="font-bold">Inlay y Onlay</span>.</span></li>
+                            <li class="flex items-start"><span class="text-green-600 mr-2 text-2xl">✓</span><span><span class="font-bold">Puentes de 3 unidades</span> (hasta 2º premolar).</span></li>
+                            <li class="flex items-start"><span class="text-green-600 mr-2 text-2xl">✓</span><span>Coronas sobre <span class="font-bold">implantes</span>.</span></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-2xl font-semibold text-red-600 mb-4 border-b-2 border-red-600 pb-2">✗ Contraindicaciones</h4>
+                         <ul class="space-y-3 list-inside">
+                            <li class="flex items-start"><span class="text-red-600 mr-2 text-2xl">✗</span><span>Pacientes con <span class="font-bold">bruxismo severo</span> no controlado.</span></li>
+                            <li class="flex items-start"><span class="text-red-600 mr-2 text-2xl">✗</span><span><span class="font-bold">Puentes de más de 3 unidades</span> o que involucren molares.</span></li>
+                            <li class="flex items-start"><span class="text-red-600 mr-2 text-2xl">✗</span><span><span class="font-bold">Remanente dental muy reducido</span> que no permita adhesión.</span></li>
+                            <li class="flex items-start"><span class="text-red-600 mr-2 text-2xl">✗</span><span>Márgenes en <span class="font-bold">"filo de cuchillo"</span> sin grosor adecuado.</span></li>
+                            <li class="flex items-start"><span class="text-red-600 mr-2 text-2xl">✗</span><span>Dimensión vertical oclusal <span class="font-bold">muy reducida</span>.</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <footer class="text-center mt-12 pt-8 border-t border-gray-300">
+            <p class="brand-gray">Catedra de Prostodoncia III, Facultad de Odontologia, Universidad Nacional de Cordoba.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        (function() {
+            'use strict';
+
+            const brandColors = {
+                blueDark: '#0B3C5D',
+                blueMid: '#328CC1',
+                gold: '#F1B814',
+                gray: '#4F646F',
+                tealLight: '#D9E8E4',
+                red: '#D45087',
+                green: '#28a745'
+            };
+
+            const chartDefaultOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: {
+                                family: "'Inter', sans-serif",
+                                size: 12,
+                            },
+                            color: brandColors.gray,
+                            padding: 20
+                        }
+                    },
+                    tooltip: {
+                        enabled: true,
+                        backgroundColor: 'rgba(0,0,0,0.8)',
+                        titleFont: { size: 14, weight: 'bold', family: "'Inter', sans-serif" },
+                        bodyFont: { size: 12, family: "'Inter', sans-serif" },
+                        callbacks: {
+                           title: function(tooltipItems) {
+                                const item = tooltipItems[0];
+                                let label = item.chart.data.labels[item.dataIndex];
+                                if (Array.isArray(label)) {
+                                  return label.join(' ');
+                                } else {
+                                  return label;
+                                }
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        grid: {
+                            color: '#e0e0e0',
+                            borderDash: [2, 4],
+                        },
+                        ticks: {
+                            color: brandColors.gray,
+                             font: {
+                                family: "'Inter', sans-serif",
+                            }
+                        }
+                    },
+                    x: {
+                         grid: {
+                            display: false,
+                        },
+                        ticks: {
+                            color: brandColors.gray,
+                            font: {
+                                family: "'Inter', sans-serif",
+                            }
+                        }
+                    }
+                }
+            };
+            
+            function wrapLabel(label, maxWidth) {
+                if (label.length <= maxWidth) {
+                    return label;
+                }
+                const words = label.split(' ');
+                let lines = [];
+                let currentLine = words[0];
+
+                for (let i = 1; i < words.length; i++) {
+                    if ((currentLine + ' ' + words[i]).length > maxWidth) {
+                        lines.push(currentLine);
+                        currentLine = words[i];
+                    } else {
+                        currentLine += ' ' + words[i];
+                    }
+                }
+                lines.push(currentLine);
+                return lines;
+            }
+
+
+            const survivalRateCtx = document.getElementById('survivalRateChart')?.getContext('2d');
+            if(survivalRateCtx) {
+                new Chart(survivalRateCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Tasa de Supervivencia', 'Tasa de Fracaso'],
+                        datasets: [{
+                            data: [97.4, 2.6],
+                            backgroundColor: [brandColors.blueMid, brandColors.tealLight],
+                            borderColor: '#ffffff',
+                            borderWidth: 4,
+                            hoverOffset: 4
+                        }]
+                    },
+                    options: { ...chartDefaultOptions, cutout: '70%'}
+                });
+            }
+
+            const compositionCtx = document.getElementById('compositionChart')?.getContext('2d');
+            if(compositionCtx) {
+                new Chart(compositionCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Dióxido de Silicio (SiO₂)', 'Óxido de Litio (Li₂O)', 'Dióxido de Zirconio (ZrO₂)', 'Otros Óxidos'],
+                        datasets: [{
+                            label: 'Composición (% en peso)',
+                            data: [62.5, 12.5, 15, 10],
+                            backgroundColor: [brandColors.blueDark, brandColors.blueMid, brandColors.tealLight, brandColors.gold],
+                            borderColor: '#ffffff',
+                            borderWidth: 4,
+                            hoverOffset: 4
+                        }]
+                    },
+                    options: { ...chartDefaultOptions, cutout: '60%' }
+                });
+            }
+
+            const flexuralStrengthCtx = document.getElementById('flexuralStrengthChart')?.getContext('2d');
+            if(flexuralStrengthCtx) {
+                const labels = ['Porcelana Feldespática', 'Disilicato de Litio', 'Zirconia'];
+                new Chart(flexuralStrengthCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels.map(l => wrapLabel(l, 16)),
+                        datasets: [{
+                            label: 'Resistencia a la Flexión (MPa)',
+                            data: [100, 400, 1200],
+                            backgroundColor: [brandColors.tealLight, brandColors.blueMid, brandColors.blueDark],
+                            borderColor: [brandColors.gray, brandColors.gray, brandColors.gray],
+                            borderWidth: 1,
+                            borderRadius: 4
+                        }]
+                    },
+                    options: { 
+                        ...chartDefaultOptions, 
+                        plugins: { ...chartDefaultOptions.plugins, legend: { display: false } }
+                    }
+                });
+            }
+            
+            const techniquePropertiesCtx = document.getElementById('techniquePropertiesChart')?.getContext('2d');
+            if(techniquePropertiesCtx) {
+                const labels = ['Resistencia a la Flexión (MPa)', 'Tenacidad a la Fractura (MPa·m¹/²)'];
+                new Chart(techniquePropertiesCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels.map(l => wrapLabel(l, 16)),
+                        datasets: [
+                            {
+                                label: 'Prensado',
+                                data: [425, 2.75],
+                                backgroundColor: brandColors.blueDark,
+                                borderWidth: 1,
+                                borderRadius: 4
+                            },
+                            {
+                                label: 'CAD/CAM',
+                                data: [380, 2.25],
+                                backgroundColor: brandColors.gold,
+                                borderWidth: 1,
+                                borderRadius: 4
+                            }
+                        ]
+                    },
+                    options: chartDefaultOptions
+                });
+            }
+
+            const radarCtx = document.getElementById('materialsRadarChart')?.getContext('2d');
+            if(radarCtx) {
+                new Chart(radarCtx, {
+                    type: 'radar',
+                    data: {
+                        labels: ['Resistencia', 'Estética', 'Adhesión Fiable'],
+                        datasets: [
+                            {
+                                label: 'Disilicato de Litio',
+                                data: [6, 9, 9],
+                                fill: true,
+                                backgroundColor: 'rgba(50, 140, 193, 0.2)',
+                                borderColor: 'rgb(50, 140, 193)',
+                                pointBackgroundColor: 'rgb(50, 140, 193)',
+                                pointBorderColor: '#fff',
+                                pointHoverBackgroundColor: '#fff',
+                                pointHoverBorderColor: 'rgb(50, 140, 193)'
+                            },
+                            {
+                                label: 'Zirconia',
+                                data: [10, 6, 5],
+                                fill: true,
+                                backgroundColor: 'rgba(11, 60, 93, 0.2)',
+                                borderColor: 'rgb(11, 60, 93)',
+                                pointBackgroundColor: 'rgb(11, 60, 93)',
+                                pointBorderColor: '#fff',
+                                pointHoverBackgroundColor: '#fff',
+                                pointHoverBorderColor: 'rgb(11, 60, 93)'
+                            },
+                            {
+                                label: 'Porcelana Feldespática',
+                                data: [2, 10, 9],
+                                fill: true,
+                                backgroundColor: 'rgba(241, 184, 20, 0.2)',
+                                borderColor: 'rgb(241, 184, 20)',
+                                pointBackgroundColor: 'rgb(241, 184, 20)',
+                                pointBorderColor: '#fff',
+                                pointHoverBackgroundColor: '#fff',
+                                pointHoverBorderColor: 'rgb(241, 184, 20)'
+                            }
+                        ]
+                    },
+                    options: {
+                        ...chartDefaultOptions,
+                        scales: {
+                           r: {
+                                beginAtZero: true,
+                                max: 10,
+                                pointLabels: {
+                                    font: {
+                                        size: 14,
+                                        weight: 'bold'
+                                    }
+                                }
+                           }
+                        }
+                    }
+                });
+            }
+
+        })();
+    </script>
+</body>
+</html>
